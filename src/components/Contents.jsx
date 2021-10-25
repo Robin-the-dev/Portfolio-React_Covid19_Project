@@ -8,35 +8,53 @@ const StyledSection = styled.section`
 `;
 
 const Contents = () => {
-	const [confirmedData, setConfirmedData] = useState({
-		labels: ["January", "Feburary", "March"],
-		datasets: [
-			{
-				label: "Confirmed cases",
-				backgroundColor: "salmon",
-				fill: true,
-				data: [10, 5, 3]
-			},
-		]
-	});
+	const [confirmedData, setConfirmedData] = useState({});
 
 	useEffect(() => {
 		const makeData = (items) => {
-			items.forEach(item => console.log(item));
+			const arr = items.reduce((acc, cur) => {
+				const curDate = new Date(cur.Date);
+				const year = curDate.getFullYear();
+				const month = curDate.getMonth();
+				const date = curDate.getDate();
+				const confirmed = cur.Confirmed;
+				const active = cur.Active;
+				const deaths = cur.Deaths;
+				const recovered = cur.Recovered;
+
+				acc.push({year, month, date, confirmed, active, deaths, recovered});
+
+				return acc;
+			}, []);
+
+			return arr.slice(arr.length - 31, arr.length - 1);
 		}
 
 		const fetchEvents = async () => {
 			const res = await axios.get('https://api.covid19api.com/total/dayone/country/kr');
-			makeData(res.data);
+			const data = makeData(res.data);
+
+			setConfirmedData({
+				labels: data.map(data => `${data.date} ${data.month + 1} ${data.year}`),
+				datasets: [
+					{
+						label: "Confirmed Cases",
+						backgroundColor: "salmon",
+						fill: true,
+						data: data.map(data => data.confirmed)
+					}
+				]
+			})
 		}
+
 		fetchEvents();
-	});
+	}, []);
 
 	const options = {
 		plugins: {
 			title: {
 				display: true,
-				text: '누적 확진자 통계',
+				text: 'Cumulative confirmed cases',
 				fontSize: 16
 			},
 			legend: {
@@ -48,7 +66,7 @@ const Contents = () => {
 
 	return (
 		<StyledSection>
-			<h2>국내 코로나 현황</h2>
+			<h2>The current status of Covid-19 in Korea</h2>
 			<div>
 				<div>
 					<Bar data={confirmedData} options={options} />

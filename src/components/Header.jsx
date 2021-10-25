@@ -25,8 +25,8 @@ const Header = () => {
 		<StyledHeader>
 			<StyledH1>COVID-19</StyledH1>
 			<StyledSelect>
-				<option>국내</option>
-				<option>세계</option>
+				<option>Korea</option>
+				<option>World</option>
 			</StyledSelect>
 		</StyledHeader>
 	);
