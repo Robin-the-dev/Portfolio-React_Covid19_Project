@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import {Bar, Doughnut, Line} from 'react-chartjs-2';
+import {Bar, Line} from 'react-chartjs-2';
 
 const StyledSection = styled.section`
 	padding: 1rem;
@@ -9,6 +9,7 @@ const StyledSection = styled.section`
 
 const Contents = () => {
 	const [confirmedData, setConfirmedData] = useState({});
+	const [quarantinedData, setQuarantinedData] = useState({});
 
 	useEffect(() => {
 		const makeData = (items) => {
@@ -34,8 +35,10 @@ const Contents = () => {
 			const res = await axios.get('https://api.covid19api.com/total/dayone/country/kr');
 			const data = makeData(res.data);
 
+			const dateLabels = data.map(data => `${data.date} ${data.month + 1} ${data.year}`);
+
 			setConfirmedData({
-				labels: data.map(data => `${data.date} ${data.month + 1} ${data.year}`),
+				labels: dateLabels,
 				datasets: [
 					{
 						label: "Confirmed Cases",
@@ -44,17 +47,43 @@ const Contents = () => {
 						data: data.map(data => data.confirmed)
 					}
 				]
-			})
+			});
+
+			setQuarantinedData({
+				labels: dateLabels,
+				datasets: [
+					{
+						label: "Quarantined Cases",
+						backgroundColor: "magenta",
+						fill: false,
+						data: data.map(data => data.active)
+					}
+				]
+			});
 		}
 
 		fetchEvents();
 	}, []);
 
-	const options = {
+	const barOptions = {
 		plugins: {
 			title: {
 				display: true,
 				text: 'Cumulative confirmed cases',
+				fontSize: 16
+			},
+			legend: {
+				display: true,
+				position: 'bottom'
+			}
+		}
+	}
+
+	const lineOptions = {
+		plugins: {
+			title: {
+				display: true,
+				text: 'Current qurantined cases',
 				fontSize: 16
 			},
 			legend: {
@@ -69,7 +98,10 @@ const Contents = () => {
 			<h2>The current status of Covid-19 in Korea</h2>
 			<div>
 				<div>
-					<Bar data={confirmedData} options={options} />
+					<Bar data={confirmedData} options={barOptions} />
+					<br />
+					<Line data={quarantinedData} options={lineOptions} />
+					<br />
 				</div>
 			</div>
 		</StyledSection>
