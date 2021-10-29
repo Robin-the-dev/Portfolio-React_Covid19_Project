@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import {Link} from 'react-router-dom';
 
 const StyledHeader = styled.header`
 	padding: 1rem 2rem;
@@ -13,21 +14,19 @@ const StyledH1 = styled.h1`
 	color: white;
 `;
 
-const StyledSelect = styled.select`
-	height: 30px;
-	width: 140px;
-	border-radius: 5px;
-	border: none;
+const StyledLink = styled(Link)`
+	color: white;
+	padding: 0 5px;
 `;
 
 const Header = () => {
 	return (
 		<StyledHeader>
 			<StyledH1>COVID-19</StyledH1>
-			<StyledSelect>
-				<option>Korea</option>
-				<option>World</option>
-			</StyledSelect>
+			<div>
+				<StyledLink to="/korea">Korea</StyledLink>
+				<StyledLink to="/japan">Japan</StyledLink>
+			</div>
 		</StyledHeader>
 	);
 }
