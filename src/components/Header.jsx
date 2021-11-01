@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 
+import SelectBox from './SelectBox';
+
 const StyledHeader = styled.header`
 	padding: 1rem 2rem;
 	background: #3b5998;
@@ -26,6 +28,7 @@ const Header = () => {
 			<div>
 				<StyledLink to="/korea">Korea</StyledLink>
 				<StyledLink to="/japan">Japan</StyledLink>
+				<SelectBox />
 			</div>
 		</StyledHeader>
 	);
