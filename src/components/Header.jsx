@@ -12,19 +12,19 @@ const StyledHeader = styled.header`
 	align-items: center;
 `;
 
-const StyledH1 = styled.h1`
-	color: white;
-`;
-
 const StyledLink = styled(Link)`
 	color: white;
 	padding: 0 5px;
+	text-decoration: none;
+	&:hover {
+		color: grey;
+	}
 `;
 
 const Header = () => {
 	return (
 		<StyledHeader>
-			<StyledH1>COVID-19</StyledH1>
+			<StyledLink className='h1' to='/'>COVID-19</StyledLink>
 			<div>
 				<StyledLink to="/korea">Korea</StyledLink>
 				<StyledLink to="/japan">Japan</StyledLink>

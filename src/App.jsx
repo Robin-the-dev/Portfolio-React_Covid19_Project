@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Header from './components/Header';
 import Contents from './components/Contents';
+import Home from './components/Home';
 
 const StyledDiv = styled.div`
 	display: flex;
@@ -16,7 +17,7 @@ const App = () => {
 		<Router>
 			<StyledDiv>
 				<Header />
-				<Route exact path='/' render={() => <Contents select={'korea'} />} />
+				<Route exact path='/' component={Home} />
 				<Route path='/korea' render={() => <Contents select={'korea'} />} />
 				<Route path='/japan' render={() => <Contents select={'japan'} />} />
 			</StyledDiv>
