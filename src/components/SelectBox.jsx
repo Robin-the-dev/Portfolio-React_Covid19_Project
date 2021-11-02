@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import {withRouter} from 'react-router-dom';
 
-const SelectBox = () => {
+const SelectBox = ({history}) => {
 	const [countries, setCountries] = useState([]);
 
 	useEffect(() => {
@@ -18,8 +19,16 @@ const SelectBox = () => {
 		fetchCountries();
 	}, []);
 	
+	const changeCode = (e) => {
+		if(e.target.value === 'select') {
+			return
+		} else {
+			history.push(`/country/${e.target.value}`);
+		}
+	}
+
 	return (
-		<select className="form-select">
+		<select className="form-select" onChange={changeCode}>
 			<option key="select" value="select">Select</option>
 			{countries.map((country) => {
 				return <option key={country.ISO2} value={country.ISO2}>{country.Country}</option>
@@ -28,4 +37,4 @@ const SelectBox = () => {
 	);
 }
 
-export default SelectBox;
+export default withRouter(SelectBox);

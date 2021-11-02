@@ -24,10 +24,8 @@ const StyledLink = styled(Link)`
 const Header = () => {
 	return (
 		<StyledHeader>
-			<StyledLink className='h1' to='/'>COVID-19</StyledLink>
+			<StyledLink className='h1' to='/'>COVID-19 Tracker</StyledLink>
 			<div>
-				<StyledLink to="/korea">Korea</StyledLink>
-				<StyledLink to="/japan">Japan</StyledLink>
 				<SelectBox />
 			</div>
 		</StyledHeader>

@@ -18,8 +18,7 @@ const App = () => {
 			<StyledDiv>
 				<Header />
 				<Route exact path='/' component={Home} />
-				<Route path='/korea' render={() => <Contents select={'korea'} />} />
-				<Route path='/japan' render={() => <Contents select={'japan'} />} />
+				<Route path='/country/:code' component={Contents} />
 			</StyledDiv>
 		</Router>
 	);

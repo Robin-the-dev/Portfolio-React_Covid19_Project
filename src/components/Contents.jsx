@@ -7,7 +7,7 @@ const StyledSection = styled.section`
 	padding: 1rem;
 `;
 
-const Contents = ({select}) => {
+const Contents = ({match}) => {
 	const [confirmedData, setConfirmedData] = useState({});
 	const [quarantinedData, setQuarantinedData] = useState({});
 
@@ -32,18 +32,8 @@ const Contents = ({select}) => {
 		}
 
 		const fetchEvents = async () => {
-			let res;
+			const res = await axios.get('https://api.covid19api.com/total/dayone/country/' + match.params.code);
 
-			switch(select) {
-				case 'korea':
-					res = await axios.get('https://api.covid19api.com/total/dayone/country/kr');
-					break;
-				case 'japan':
-					res = await axios.get('https://api.covid19api.com/total/dayone/country/jp');
-					break;
-				default:
-					break;
-			}
 			const data = makeData(res.data);
 
 			const dateLabels = data.map(data => `${data.date} ${data.month + 1} ${data.year}`);
@@ -74,7 +64,7 @@ const Contents = ({select}) => {
 		}
 
 		fetchEvents();
-	}, [select]);
+	}, [match.params.code]);
 
 	const barOptions = {
 		plugins: {
@@ -106,7 +96,7 @@ const Contents = ({select}) => {
 
 	return (
 		<StyledSection>
-			<h2>The current status of Covid-19 in {select}</h2>
+			<h2>The current status of Covid-19 in {match.params.code}</h2>
 			<div>
 				<div>
 					<Bar data={confirmedData} options={barOptions} />
