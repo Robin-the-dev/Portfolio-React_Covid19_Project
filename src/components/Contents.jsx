@@ -28,6 +28,12 @@ const Contents = ({match}) => {
 				return acc;
 			}, []);
 
+			// Calculate daily confirmed cases
+			for(let i = 1; i < arr.length; i++) {
+				if(i === 1) arr[i - 1].dailyConfirmed = arr[i - 1].confirmed;
+				arr[i].dailyConfirmed = arr[i].confirmed - arr[i-1].confirmed;
+			}
+
 			return arr.slice(arr.length - 31, arr.length);
 		}
 
@@ -42,10 +48,10 @@ const Contents = ({match}) => {
 				labels: dateLabels,
 				datasets: [
 					{
-						label: "Confirmed Cases",
+						label: "New Confirmed Cases",
 						backgroundColor: "salmon",
 						fill: true,
-						data: data.map(data => data.confirmed)
+						data: data.map(data => data.dailyConfirmed)
 					}
 				]
 			});
@@ -54,10 +60,10 @@ const Contents = ({match}) => {
 				labels: dateLabels,
 				datasets: [
 					{
-						label: "Quarantined Cases",
+						label: "Deaths",
 						backgroundColor: "magenta",
 						fill: false,
-						data: data.map(data => data.active)
+						data: data.map(data => data.deaths)
 					}
 				]
 			});
@@ -70,7 +76,7 @@ const Contents = ({match}) => {
 		plugins: {
 			title: {
 				display: true,
-				text: 'Cumulative confirmed cases',
+				text: 'New confirmed cases',
 				fontSize: 16
 			},
 			legend: {
@@ -84,7 +90,7 @@ const Contents = ({match}) => {
 		plugins: {
 			title: {
 				display: true,
-				text: 'Current qurantined cases',
+				text: 'Cumulative death cases',
 				fontSize: 16
 			},
 			legend: {

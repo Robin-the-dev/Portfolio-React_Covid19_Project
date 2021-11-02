@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {withRouter} from 'react-router-dom';
 
-const SelectBox = ({history}) => {
+const SelectBox = ({history, location}) => {
 	const [countries, setCountries] = useState([]);
 
 	useEffect(() => {
@@ -28,8 +28,8 @@ const SelectBox = ({history}) => {
 	}
 
 	return (
-		<select className="form-select" onChange={changeCode}>
-			<option key="select" value="select">Select</option>
+		<select className='form-select' defaultValue='select' onChange={changeCode}>
+			<option key='select' value='select'>Select</option>
 			{countries.map((country) => {
 				return <option key={country.ISO2} value={country.ISO2}>{country.Country}</option>
 			})}
