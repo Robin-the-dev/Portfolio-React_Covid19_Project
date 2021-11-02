@@ -28,7 +28,7 @@ const SelectBox = ({history, location}) => {
 	}
 
 	return (
-		<select className='form-select' defaultValue='select' onChange={changeCode}>
+		<select style={{width: '10rem'}} className='form-select' defaultValue='select' onChange={changeCode}>
 			<option key='select' value='select'>Select</option>
 			{countries.map((country) => {
 				return <option key={country.ISO2} value={country.ISO2}>{country.Country}</option>

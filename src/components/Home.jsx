@@ -49,8 +49,7 @@ const Home = () => {
 					<Card.Body>
 						<Card.Title>{globalCase.totalConfirmed}</Card.Title>
 						<Card.Text>
-							Some quick example text to build on the card title and make up the bulk of
-							the card's content.
+							It is importan to be vaccinated!!! 
 						</Card.Text>
 					</Card.Body>
 				</StyledCard>	
@@ -59,8 +58,7 @@ const Home = () => {
 					<Card.Body>
 						<Card.Title>{globalCase.newConfirmed}</Card.Title>
 						<Card.Text>
-							Some quick example text to build on the card title and make up the bulk of
-							the card's content.
+							Stay home! Stay safe and healthy!!!
 						</Card.Text>
 					</Card.Body>
 				</StyledCard>		
@@ -69,8 +67,7 @@ const Home = () => {
 					<Card.Body>
 						<Card.Title>{globalCase.totalDeaths}</Card.Title>
 						<Card.Text>
-							Some quick example text to build on the card title and make up the bulk of
-							the card's content.
+							Blah Blah Blah...
 						</Card.Text>
 					</Card.Body>
 				</StyledCard>
@@ -79,8 +76,7 @@ const Home = () => {
 					<Card.Body>
 						<Card.Title>{globalCase.newDeaths}</Card.Title>
 						<Card.Text>
-							Some quick example text to build on the card title and make up the bulk of
-							the card's content.
+							Anyway, this is my first portfolio!
 						</Card.Text>
 					</Card.Body>
 				</StyledCard>
