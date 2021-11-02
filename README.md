@@ -6,4 +6,6 @@ This react web application is to track current status of Covid-19 using API.
 
 API: https://covid19api.com
 
-※ Somehow, the current data is not accurate. The current recovered data is set to 0, so it causes incorrect active cases.
+Website: https://covid-19-tracker-by-robin.herokuapp.com/
+
+※ The current data is not accurate.
