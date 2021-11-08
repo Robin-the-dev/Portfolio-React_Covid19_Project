@@ -28,7 +28,7 @@ const Contents = ({match}) => {
 				return acc;
 			}, []);
 
-			// Calculate daily confirmed cases
+			// Calculate new confirmed cases
 			for(let i = 1; i < arr.length; i++) {
 				if(i === 1) arr[i - 1].dailyConfirmed = arr[i - 1].confirmed;
 				arr[i].dailyConfirmed = arr[i].confirmed - arr[i-1].confirmed;
