@@ -18,6 +18,7 @@ const StyledH2 = styled.h2`
 const Home = () => {
 	const [globalCase, setGlobalCase] = useState({});
 
+	// get global case data from API
 	useEffect(() => {
 		axios.get('https://api.covid19api.com/summary')
 			.then((res) => {

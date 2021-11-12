@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// set footer's css to be fixed at the bottom
 const StyledFooter = styled.footer`
 	position: absolute;
 	left: 0;

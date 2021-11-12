@@ -8,10 +8,12 @@ const StyledSection = styled.section`
 `;
 
 const Contents = ({match}) => {
+	// set two hooks for confirmed and deaths data (Can be added more)
 	const [confirmedData, setConfirmedData] = useState({});
-	const [quarantinedData, setQuarantinedData] = useState({});
+	const [deathsData, setDeathsData] = useState({});
 
 	useEffect(() => {
+		// pick and make specific data that needs for this application
 		const makeData = (items) => {
 			const arr = items.reduce((acc, cur) => {
 				const curDate = new Date(cur.Date);
@@ -28,20 +30,23 @@ const Contents = ({match}) => {
 				return acc;
 			}, []);
 
-			// Calculate new confirmed cases
+			// calculate new confirmed cases
 			for(let i = 1; i < arr.length; i++) {
 				if(i === 1) arr[i - 1].dailyConfirmed = arr[i - 1].confirmed;
 				arr[i].dailyConfirmed = arr[i].confirmed - arr[i-1].confirmed;
 			}
 
+			// cut data for one month
 			return arr.slice(arr.length - 31, arr.length);
 		}
-
+		
+		// fetch data from API
 		const fetchEvents = async () => {
 			const res = await axios.get('https://api.covid19api.com/total/dayone/country/' + match.params.code);
 
 			const data = makeData(res.data);
 
+			// make date labels from data for chart label
 			const dateLabels = data.map(data => `${data.date} ${data.month + 1} ${data.year}`);
 
 			setConfirmedData({
@@ -56,7 +61,7 @@ const Contents = ({match}) => {
 				]
 			});
 
-			setQuarantinedData({
+			setDeathsData({
 				labels: dateLabels,
 				datasets: [
 					{
@@ -70,8 +75,10 @@ const Contents = ({match}) => {
 		}
 
 		fetchEvents();
+		// second argument of useEffect function must be [match.params.code] to detect change
 	}, [match.params.code]);
 
+	// chart options
 	const barOptions = {
 		plugins: {
 			title: {
@@ -85,7 +92,6 @@ const Contents = ({match}) => {
 			}
 		}
 	}
-
 	const lineOptions = {
 		plugins: {
 			title: {
@@ -107,7 +113,7 @@ const Contents = ({match}) => {
 				<div>
 					<Bar data={confirmedData} options={barOptions} />
 					<br />
-					<Line data={quarantinedData} options={lineOptions} />
+					<Line data={deathsData} options={lineOptions} />
 					<br />
 				</div>
 			</div>

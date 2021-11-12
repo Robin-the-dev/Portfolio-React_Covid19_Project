@@ -6,10 +6,12 @@ const SelectBox = ({history, location}) => {
 	const [countries, setCountries] = useState([]);
 
 	useEffect(() => {
+		// order countryies alphabetically
 		const orderCountries = (countries) => {
 			return countries.sort((a, b) => a.Country.localeCompare(b.Country));
 		}
-
+		
+		// fetch countries from API
 		const fetchCountries = async () => {
 			const res = await axios.get('https://api.covid19api.com/countries');
 			const orderedCountries = orderCountries(res.data);
@@ -19,7 +21,9 @@ const SelectBox = ({history, location}) => {
 		fetchCountries();
 	}, []);
 	
+	// get country code from select box and pass to URL
 	const changeCode = (e) => {
+		// if select is selected, do nothing
 		if(e.target.value === 'select') {
 			return
 		} else {
@@ -37,4 +41,5 @@ const SelectBox = ({history, location}) => {
 	);
 }
 
+// need to be exported with withRouter to use history object in react-router-dom
 export default withRouter(SelectBox);
